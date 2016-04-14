@@ -1,1 +1,1 @@
-@start /B gradlew.bat setupDecompWorkspace eclipse
+@start /B gradlew.bat setupDecompWorkspace idea

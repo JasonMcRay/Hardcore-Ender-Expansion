@@ -4,10 +4,13 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedSet;
+
+//import com.gmail.mcrayjason.infinitycore.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,9 +34,10 @@ import chylex.hee.tileentity.TileEntityEssenceAltar;
 
 public class DragonEssenceHandler extends AltarActionHandler{
 	public static final List<AltarItemRecipe> recipes = CollectionUtil.newList(new AltarItemRecipe[]{
-		new AltarItemRecipe(new ItemStack(Items.brewing_stand), new ItemStack(ItemList.enhanced_brewing_stand), 20),
-		new AltarItemRecipe(new ItemStack(Items.ender_eye), new ItemStack(ItemList.temple_caller), 50),
-		new AltarItemRecipe(new ItemStack(ItemList.ghost_amulet,1,0), new ItemStack(ItemList.ghost_amulet,1,1), 8)
+		new AltarItemRecipe(new ItemStack(Items.brewing_stand), new ItemStack(ItemList.enhanced_brewing_stand), 1, 2, 3, 4),
+		new AltarItemRecipe(new ItemStack(Items.ender_eye), new ItemStack(ItemList.temple_caller), 50, 150, 450, 1350),
+		new AltarItemRecipe(new ItemStack(ItemList.ghost_amulet,1,0), new ItemStack(ItemList.ghost_amulet,1,1), 8, 24, 72, 216)
+		//new AltarItemRecipe(new ItemStack(ModItems.dormantEgg), new ItemStack(Blocks.dragon_egg), 400, 800, 2400, 3400)
 	});
 	
 	private AxisAlignedBB itemBoundingBox;
@@ -245,7 +249,7 @@ public class DragonEssenceHandler extends AltarActionHandler{
 			for(AltarItemRecipe recipe:recipes){
 				if (recipe.isApplicable(is)){
 					for(int a = enhancements.contains(EssenceAltarEnhancements.SPEED) ? 2 : 1; a > 0; a--){
-						if (updateItemCounter(is,"HEE_transform",1) <= Math.max(MathUtil.ceil(recipe.cost*(enhancements.contains(EssenceAltarEnhancements.EFFICIENCY) ? 0.65F : 1F)),recipe.cost>>1)){
+						if (updateItemCounter(is,"HEE_transform",1) <= Math.max(MathUtil.ceil(recipe.getCost(item.worldObj.difficultySetting)*(enhancements.contains(EssenceAltarEnhancements.EFFICIENCY) ? 0.65F : 1F)),recipe.getCost(item.worldObj.difficultySetting)>>1)){
 							altar.drainEssence(1);
 							continue;
 						}

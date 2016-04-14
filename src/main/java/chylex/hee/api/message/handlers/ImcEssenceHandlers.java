@@ -26,7 +26,7 @@ public final class ImcEssenceHandlers extends ImcHandler{
 				}
 			}
 			
-			DragonEssenceHandler.recipes.add(new AltarItemRecipe(input,runner.<ItemStack>getValue("output"),runner.getInt("cost")));
+			DragonEssenceHandler.recipes.add(new AltarItemRecipe(input,runner.<ItemStack>getValue("output"),runner.getInt("costPeaceful"),runner.getInt("costEasy"),runner.getInt("costNormal"),runner.getInt("costHard")));
 			MessageLogger.logOk("Added 1 recipe.");
 		}
 	};
