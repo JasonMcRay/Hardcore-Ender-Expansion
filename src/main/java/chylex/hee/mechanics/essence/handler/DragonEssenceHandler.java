@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.SortedSet;
 
 //import com.gmail.mcrayjason.infinitycore.init.ModItems;
+import com.gmail.mcrayjason.infinitycore.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -33,11 +34,12 @@ import chylex.hee.system.util.MathUtil;
 import chylex.hee.tileentity.TileEntityEssenceAltar;
 
 public class DragonEssenceHandler extends AltarActionHandler{
+	@SuppressWarnings("RedundantArrayCreation")
 	public static final List<AltarItemRecipe> recipes = CollectionUtil.newList(new AltarItemRecipe[]{
-		new AltarItemRecipe(new ItemStack(Items.brewing_stand), new ItemStack(ItemList.enhanced_brewing_stand), 1, 2, 3, 4),
-		new AltarItemRecipe(new ItemStack(Items.ender_eye), new ItemStack(ItemList.temple_caller), 50, 150, 450, 1350),
-		new AltarItemRecipe(new ItemStack(ItemList.ghost_amulet,1,0), new ItemStack(ItemList.ghost_amulet,1,1), 8, 24, 72, 216)
-		//new AltarItemRecipe(new ItemStack(ModItems.dormantEgg), new ItemStack(Blocks.dragon_egg), 400, 800, 2400, 3400)
+		new AltarItemRecipe(new ItemStack(Items.brewing_stand), new ItemStack(ItemList.enhanced_brewing_stand), 20, 30, 80, 100),
+		new AltarItemRecipe(new ItemStack(Items.ender_eye), new ItemStack(ItemList.temple_caller), 50, 75, 200, 250),
+		new AltarItemRecipe(new ItemStack(ItemList.ghost_amulet,1,0), new ItemStack(ItemList.ghost_amulet,1,1), 8, 12, 32, 40),
+		new AltarItemRecipe(new ItemStack(ModItems.dormantEgg), new ItemStack(Blocks.dragon_egg), 300, 600, 1800, 2500)
 	});
 	
 	private AxisAlignedBB itemBoundingBox;

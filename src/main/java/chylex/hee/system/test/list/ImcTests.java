@@ -60,6 +60,11 @@ public class ImcTests{
 		Assert.equal(DragonEssenceHandler.recipes.size(),3,"Unexpected list size, expected $2, got $1.");
 		Assert.equal(DragonEssenceHandler.recipes.get(1).input.getItem(),Items.ender_eye,"Unexpected second entry, expected $2, got $1. Full list: "+DragonEssenceHandler.recipes);
 
+		Assert.equal(DragonEssenceHandler.recipes.get(2).costPeaceful,15,"Unexpected peaceful recipe cost, expected $2, got $1.");
+		Assert.equal(DragonEssenceHandler.recipes.get(2).costEasy,15,"Unexpected easy recipe cost, expected $2, got $1.");
+		Assert.equal(DragonEssenceHandler.recipes.get(2).costNormal,15,"Unexpected normal recipe cost, expected $2, got $1.");
+		Assert.equal(DragonEssenceHandler.recipes.get(2).costHard,15,"Unexpected hard recipe cost, expected $2, got $1.");
+
 		ItemStack tear = new ItemStack(Items.ghast_tear);
 		
 		for(AltarItemRecipe recipe:DragonEssenceHandler.recipes){

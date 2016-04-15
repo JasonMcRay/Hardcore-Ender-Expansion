@@ -10,10 +10,10 @@ public class AltarItemRecipe{
 	private static final NBTTagCompound emptyTag = new NBTTagCompound();
 	
 	public final ItemStack input, output;
-	public static short costPeaceful;
-	public static short costEasy;
-	public static short costNormal;
-	public static short costHard;
+	public final short costPeaceful;
+	public final short costEasy;
+	public final short costNormal;
+	public final short costHard;
 
 	public AltarItemRecipe(ItemStack input, ItemStack output, int costPeaceful, int costEasy, int costNormal, int costHard){
 		this.input = input;
@@ -23,11 +23,10 @@ public class AltarItemRecipe{
 		this.costNormal = (short) costNormal;
 		this.costHard = (short) costHard;
 
-		System.out.println("Cost Peaceful is " + getCost(EnumDifficulty.PEACEFUL));
 		ItemUtil.getTagRoot(input,true);
 	}
 
-	public static int getCost(EnumDifficulty diff) {
+	public short getCost(EnumDifficulty diff) {
 		if (diff == EnumDifficulty.PEACEFUL) {
 			return costPeaceful;
 		} else if (diff == EnumDifficulty.EASY){
@@ -39,15 +38,6 @@ public class AltarItemRecipe{
 		}
 	}
 
-	/*
-	public static int getCost() {
-		if (!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
-			return 60;
-		} else {
-			return 10;
-		}
-	}
-	*/
 	/**
 	 * Checks if the ItemStacks have the same item, damage and NBT (except for Altar status NBT).
 	 */
