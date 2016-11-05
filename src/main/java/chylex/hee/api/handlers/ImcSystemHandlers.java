@@ -1,4 +1,4 @@
-package chylex.hee.api.message.handlers;
+package chylex.hee.api.handlers;
 import chylex.hee.api.message.IMessageHandler;
 import chylex.hee.api.message.element.StringValue;
 import chylex.hee.api.message.utils.MessageLogger;
@@ -17,7 +17,7 @@ public class ImcSystemHandlers extends ImcHandler{
 	
 	@Override
 	public void register(){
-		register("System:DisableIntegration",disableIntegration,RunEvent.POSTINIT)
-		.addProp("modid",StringValue.any());
+		register("System:DisableIntegration", disableIntegration, RunEvent.POSTINIT)
+		.addProp("modid", StringValue.any());
 	}
 }

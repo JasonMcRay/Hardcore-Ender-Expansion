@@ -1,4 +1,4 @@
-package chylex.hee.api.message.handlers;
+package chylex.hee.api.handlers;
 import chylex.hee.api.message.IMessageHandler;
 import chylex.hee.api.message.element.SpawnEntryValue;
 import chylex.hee.api.message.utils.MessageLogger;
@@ -13,8 +13,8 @@ public final class ImcMobHandlers extends ImcHandler{
 	
 	@Override
 	public void register(){
-		register("Mobs:SetGooImmune",enderGooTolerantAdd,RunEvent.LOADCOMPLETE)
-		.addProp("id",SpawnEntryValue.livingMobString);
+		register("Mobs:SetGooImmune", enderGooTolerantAdd, RunEvent.LOADCOMPLETE)
+		.addProp("id", SpawnEntryValue.livingMobString);
 		
 		// TODO add/remove Enderman carriable blocks
 	}

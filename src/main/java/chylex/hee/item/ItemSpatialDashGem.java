@@ -3,6 +3,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chylex.hee.entity.projectile.EntityProjectileSpatialDash;
+import chylex.hee.item.base.ItemAbstractGem;
 import chylex.hee.mechanics.enhancements.EnhancementRegistry;
 
 public class ItemSpatialDashGem extends ItemAbstractGem{
@@ -35,10 +36,10 @@ public class ItemSpatialDashGem extends ItemAbstractGem{
 		if (!canUse(is))return is;
 		
 		if (!world.isRemote){
-			useEnergy(is,player);
-			world.spawnEntityInWorld(new EntityProjectileSpatialDash(world,player,EnhancementRegistry.getEnhancementList(is)));
+			useEnergy(is, player);
+			world.spawnEntityInWorld(new EntityProjectileSpatialDash(world, player, EnhancementRegistry.getEnhancementList(is)));
 		}
-		else world.playSound(player.posX,player.posY,player.posZ,"hardcoreenderexpansion:player.random.spatialdash",0.8F,0.9F,false);
+		else world.playSound(player.posX, player.posY, player.posZ, "hardcoreenderexpansion:player.random.spatialdash", 0.8F, 0.9F, false);
 		
 		return is;
 	}

@@ -1,4 +1,4 @@
-package chylex.hee.tileentity;
+package chylex.hee.tileentity.base;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,7 @@ import net.minecraft.world.ChunkPosition;
 import chylex.hee.mechanics.energy.IEnergyBlock;
 import chylex.hee.system.abstractions.Pos;
 import chylex.hee.system.collections.CollectionUtil;
+import chylex.hee.tileentity.TileEntityEnergyCluster;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -45,32 +46,32 @@ public abstract class TileEntityAbstractEnergyInventory extends TileEntityAbstra
 				
 				if (hasInsufficientEnergy){
 					hasInsufficientEnergy = false;
-					worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
 			}
 			else if (!hasInsufficientEnergy && unitsLeft != -1){
 				hasInsufficientEnergy = true;
-				worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 			
 			if (drainTimer == 0 || --drainTimer == 0){
 				int left = unitsLeft <= 0 ? getEnergyDrained() : unitsLeft;
 				int chunkX = xCoord>>4, chunkZ = zCoord>>4;
 				
-				if (left > 0 && worldObj.checkChunksExist(chunkX-1,0,chunkZ-1,chunkX+1,0,chunkZ+1)){
+				if (left > 0 && worldObj.checkChunksExist(chunkX-1, 0, chunkZ-1, chunkX+1, 0, chunkZ+1)){
 					final Pos me = Pos.at(this);
 					final List<TileEntityEnergyCluster> clusters = new ArrayList<>();
 					
-					Pos.forEachBlock(Pos.at(-1,0,-1),Pos.at(1,0,1),offset -> {
-						((Map<ChunkPosition,TileEntity>)worldObj.getChunkFromChunkCoords(chunkX+offset.getX(),chunkZ+offset.getZ()).chunkTileEntityMap).entrySet()
+					Pos.forEachBlock(Pos.at(-1, 0, -1), Pos.at(1, 0, 1), offset -> {
+						((Map<ChunkPosition, TileEntity>)worldObj.getChunkFromChunkCoords(chunkX+offset.getX(), chunkZ+offset.getZ()).chunkTileEntityMap).entrySet()
 						.stream()
 						.filter(entry -> entry.getValue().getClass() == TileEntityEnergyCluster.class && me.distance(entry.getValue()) <= 16D)
 						.map(entry -> (TileEntityEnergyCluster)entry.getValue())
 						.forEach(clusters::add);
 					});
 					
-					for(TileEntityEnergyCluster cluster:CollectionUtil.shuffled(clusters,worldObj.rand)){
-						if ((left = cluster.tryDrainEnergy(left,this)) == 0)break;
+					for(TileEntityEnergyCluster cluster:CollectionUtil.shuffled(clusters, worldObj.rand)){
+						if ((left = cluster.tryDrainEnergy(left, this)) == 0)break;
 					}
 				}
 				
@@ -83,14 +84,14 @@ public abstract class TileEntityAbstractEnergyInventory extends TileEntityAbstra
 	@Override
 	public Packet getDescriptionPacket(){
 		NBTTagCompound nbt = new NBTTagCompound();
-		nbt.setBoolean("hie",hasInsufficientEnergy);
-		return new S35PacketUpdateTileEntity(xCoord,yCoord,zCoord,0,nbt);
+		nbt.setBoolean("hie", hasInsufficientEnergy);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
 	}
 	
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet){
 		hasInsufficientEnergy = packet.func_148857_g().getBoolean("hie"); // OBFUSCATED get tag data
-		worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -101,8 +102,8 @@ public abstract class TileEntityAbstractEnergyInventory extends TileEntityAbstra
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
-		nbt.setByte("drainTim",drainTimer);
-		nbt.setInteger("unitsLeft",unitsLeft);
+		nbt.setByte("drainTim", drainTimer);
+		nbt.setInteger("unitsLeft", unitsLeft);
 	}
 	
 	@Override

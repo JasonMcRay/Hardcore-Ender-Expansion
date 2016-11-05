@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import chylex.hee.block.base.BlockAbstractOre;
 import chylex.hee.init.BlockList;
 import chylex.hee.init.ItemList;
 import cpw.mods.fml.relauncher.Side;
@@ -22,7 +23,7 @@ public class BlockEndPowderOre extends BlockAbstractOre{
 	
 	@Override
 	public int getExpDrop(IBlockAccess world, int meta, int fortune){
-		return MathHelper.getRandomIntegerInRange(BlockList.blockRandom,2,4);
+		return MathHelper.getRandomIntegerInRange(BlockList.blockRandom, 2, 4);
 	}
 	
 	@Override
@@ -33,6 +34,6 @@ public class BlockEndPowderOre extends BlockAbstractOre{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand){
-		for(int a = 0; a < 2; a++)world.spawnParticle("portal",(x-0.425F+1.75F*rand.nextFloat()),(y+1.5F*rand.nextFloat()),(z-0.425F+1.75F*rand.nextFloat()),0D,0D,0D);
+		for(int a = 0; a < 2; a++)world.spawnParticle("portal", (x-0.425F+1.75F*rand.nextFloat()), (y+1.5F*rand.nextFloat()), (z-0.425F+1.75F*rand.nextFloat()), 0D, 0D, 0D);
 	}
 }

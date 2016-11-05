@@ -1,4 +1,4 @@
-package chylex.hee.tileentity;
+package chylex.hee.tileentity.base;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -10,18 +10,18 @@ public abstract class TileEntityAbstractSynchronized extends TileEntity{
 	public abstract void readTileFromNBT(NBTTagCompound nbt);
 	
 	public final void synchronize(){
-		if (!worldObj.isRemote)worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+		if (!worldObj.isRemote)worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	@Override
 	public Packet getDescriptionPacket(){
-		return new S35PacketUpdateTileEntity(xCoord,yCoord,zCoord,0,writeTileToNBT(new NBTTagCompound()));
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, writeTileToNBT(new NBTTagCompound()));
 	}
 	
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet){
 		readTileFromNBT(packet.func_148857_g()); // OBFUSCATED get tag data
-		worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
 	}
 	
 	@Override

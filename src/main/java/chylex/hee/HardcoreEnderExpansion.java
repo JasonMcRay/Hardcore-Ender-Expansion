@@ -39,7 +39,6 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
-import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -79,7 +78,7 @@ public class HardcoreEnderExpansion{
 		configPath = e.getSuggestedConfigurationFile().getParentFile().getName();
 		sourceFile = e.getSourceFile();
 		
-		e.getModMetadata().description = e.getModMetadata().description.replace('$','\u00a7');
+		e.getModMetadata().description = e.getModMetadata().description.replace('$', '\u00a7');
 		
 		ReflectionPublicizer.load();
 		Log.initializeDebug();
@@ -144,7 +143,7 @@ public class HardcoreEnderExpansion{
 		Stopwatch.time("InitEvent");
 		
 		PacketPipeline.initializePipeline();
-		NetworkRegistry.INSTANCE.registerGuiHandler(this,GuiHandler.instance);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler.instance);
 		RecipeList.addRecipes();
 		EnhancementRegistry.init();
 		// TODO WorldLoot.registerWorldLoot();
@@ -175,7 +174,7 @@ public class HardcoreEnderExpansion{
 			HeeIMC.runLoadComplete();
 		}
 		catch(Throwable t){
-			FMLCommonHandler.instance().raiseException(t,"Error running LoadComplete event in Hardcore Ender Expansion!",true);
+			FMLCommonHandler.instance().raiseException(t, "Error running LoadComplete event in Hardcore Ender Expansion!", true);
 		}
 		
 		Stopwatch.finish("LoadCompleteEvent");
@@ -196,7 +195,7 @@ public class HardcoreEnderExpansion{
 	
 	@EventHandler
 	public void onIMC(IMCEvent e){
-		for(IMCMessage message:e.getMessages())HeeIMC.acceptIMC(message);
+		e.getMessages().forEach(HeeIMC::acceptIMC);
 	}
 	
 	@EventHandler
@@ -205,7 +204,7 @@ public class HardcoreEnderExpansion{
 	}
 	
 	@NetworkCheckHandler
-	public boolean onNetworkCheck(Map<String,String> mods, Side side){
-		return mods.getOrDefault("HardcoreEnderExpansion","").equals(modVersion);
+	public boolean onNetworkCheck(Map<String, String> mods, Side side){
+		return mods.getOrDefault("HardcoreEnderExpansion", "").equals(modVersion);
 	}
 }

@@ -8,6 +8,7 @@ import chylex.hee.init.ItemList;
 import chylex.hee.mechanics.misc.StardustDecomposition;
 import chylex.hee.system.util.ItemDamagePair;
 import chylex.hee.system.util.ItemUtil;
+import chylex.hee.tileentity.base.TileEntityAbstractTable;
 
 public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 	public static final int slotStardust = 0, slotSubject = 1;
@@ -25,15 +26,15 @@ public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 		resetTable();
 		
 		if (items[slotSubject] != null && worldObj != null){
-			List<ItemStack> recipeIngredients = StardustDecomposition.getRandomRecipeIngredientsFor(items[slotSubject],worldObj.rand);
+			List<ItemStack> recipeIngredients = StardustDecomposition.getRandomRecipeIngredientsFor(items[slotSubject], worldObj.rand);
 			
 			if (recipeIngredients != null){
 				int originalAmt = recipeIngredients.size();
 				Set<ItemDamagePair> diversity = new HashSet<>();
-				for(ItemStack ingredient:recipeIngredients)diversity.add(new ItemDamagePair(ingredient.getItem(),ingredient.getItemDamage()));
+				for(ItemStack ingredient:recipeIngredients)diversity.add(new ItemDamagePair(ingredient.getItem(), ingredient.getItemDamage()));
 				
 				float damageMp = items[slotSubject].isItemStackDamageable() ? 1F-(float)items[slotSubject].getItemDamage()/items[slotSubject].getMaxDamage() : 1F;
-				int amt = Math.max(1,Math.round(recipeIngredients.size()*(0.425F+worldObj.rand.nextFloat()*0.415F)*damageMp));
+				int amt = Math.max(1, Math.round(recipeIngredients.size()*(0.425F+worldObj.rand.nextFloat()*0.415F)*damageMp));
 				
 				ItemStack ingredient;
 				for(int a = 0; a < amt; a++){
@@ -46,7 +47,7 @@ public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 				stardust *= 0.75F+(diversity.size()*0.8F/originalAmt);
 				
 				requiredStardust = (byte)Math.ceil(stardust);
-				timeStep = (short)Math.max(2,20-Math.pow(requiredStardust,0.9D));
+				timeStep = (short)Math.max(2, 20-Math.pow(requiredStardust, 0.9D));
 				updateComparatorStatus();
 			}
 		}
@@ -62,7 +63,7 @@ public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 			
 			for(int slot = 0; slot < itemsCopy.length; slot++){
 				if (itemsCopy[slot] == null)itemsCopy[slot] = ingredient.copy();
-				else if (ItemUtil.canAddOneItemTo(itemsCopy[slot],ingredient))++itemsCopy[slot].stackSize;
+				else if (ItemUtil.canAddOneItemTo(itemsCopy[slot], ingredient))++itemsCopy[slot].stackSize;
 				else continue;
 				
 				canAdd = true;
@@ -75,7 +76,7 @@ public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 		for(ItemStack ingredient:chosenIngredients){
 			for(int slot = 2; slot < items.length; slot++){
 				if (items[slot] == null)items[slot] = ingredient.copy();
-				else if (ItemUtil.canAddOneItemTo(items[slot],ingredient))++items[slot].stackSize;
+				else if (ItemUtil.canAddOneItemTo(items[slot], ingredient))++items[slot].stackSize;
 				else continue;
 				break;
 			}
@@ -100,7 +101,7 @@ public class TileEntityDecompositionTable extends TileEntityAbstractTable{
 	
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack is){
-		super.setInventorySlotContents(slot,is);
+		super.setInventorySlotContents(slot, is);
 		if (slot == slotSubject)invalidateInventory();
 	}
 
