@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedSet;
 
-//import com.gmail.mcrayjason.infinitycore.init.ModItems;
 import com.gmail.mcrayjason.infinitycore.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
