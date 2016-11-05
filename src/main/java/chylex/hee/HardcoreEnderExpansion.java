@@ -9,7 +9,6 @@ import chylex.hee.init.EntityList;
 import chylex.hee.init.ItemList;
 import chylex.hee.mechanics.MiscEvents;
 import chylex.hee.mechanics.RecipeList;
-import chylex.hee.mechanics.causatum.CausatumEvents;
 import chylex.hee.mechanics.charms.handler.CharmPouchHandler;
 import chylex.hee.mechanics.compendium.KnowledgeRegistrations;
 import chylex.hee.mechanics.compendium.events.CompendiumEvents;
@@ -69,7 +68,7 @@ public class HardcoreEnderExpansion{
 	@SidedProxy(clientSide = "chylex.hee.proxy.NotificationClientProxy", serverSide = "chylex.hee.proxy.NotificationCommonProxy")
 	public static NotificationCommonProxy notifications;
 	
-	public static final int buildId = 96_91_16_0;
+	public static final int buildId = 18_97_16_0;
 	
 	public static String modVersion;
 	public static String configPath;
@@ -132,14 +131,13 @@ public class HardcoreEnderExpansion{
 		EnergyEvents.register();
 		TempleEvents.register();
 		CurseEvents.register();
-		CausatumEvents.register();
 		PlayerTransportBeacons.register();
 		DragonChunkManager.register();
 		
 		Stopwatch.finish("PreInitEvent - events");
 		
 		proxy.registerSidedEvents();
-		proxy.registerRenderers();		
+		proxy.registerRenderers();
 		notifications.register();
 		
 		UnitTester.trigger(RunTime.PREINIT);
@@ -167,7 +165,7 @@ public class HardcoreEnderExpansion{
 		
 		HeeIMC.runPostInit();
 		KnowledgeRegistrations.initialize();
-		OrbAcquirableItems.initialize();
+		OrbAcquirableItems.initialize(true);
 		OrbSpawnableMobs.initialize();
 		ModIntegrationManager.integrateMods();
 		DimensionOverride.postInit();
